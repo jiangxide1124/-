@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Video Generator</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-top">
+            <div class="logo" id="btnHome" title="홈">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+            </div>
+            <div class="sidebar-item" id="btnWorkspace" title="작업실">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                <span>작업실</span>
+            </div>
+            <div class="sidebar-item" id="btnProjects" title="프로젝트">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>프로젝트</span>
+            </div>
+        </div>
+        <div class="sidebar-bottom">
+            <div class="sidebar-item" id="btnSettings" title="설정">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>설정</span>
+            </div>
+            <div class="version-badge">v1.0.0</div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <div class="tab active" data-tab="script">1. 대본</div>
+            <div class="tab" data-tab="scenes">2. 장면/이미지</div>
+            <div class="tab" data-tab="voice">3. 음성</div>
+            <div class="tab" data-tab="final">4. 최종 영상</div>
+        </div>
+
+        <!-- Project Name Bar -->
+        <div class="project-bar">
+            <label>프로젝트 이름</label>
+            <input type="text" id="projectName" value="새 프로젝트" placeholder="프로젝트 이름">
+            <button class="btn btn-save" id="btnSaveProject">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                    <polyline points="7 3 7 8 15 8"></polyline>
+                </svg>
+                저장
+            </button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container" id="progressContainer" style="display:none;">
+            <span class="progress-text" id="progressText">영상 생성 중... (0/0) [00:00]</span>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 1: 대본 ==================== -->
+        <div class="tab-content active" id="tab-script">
+            <div class="script-header">
+                <h2>대본 입력</h2>
+                <div class="script-actions">
+                    <div class="input-group">
+                        <input type="text" id="youtubeUrl" placeholder="YouTube URL을 입력하여 자막 가져오기">
+                        <button class="btn btn-secondary" id="btnFetchTranscript">자막 가져오기</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="script-options">
+                <label>장면 분할 모드:</label>
+                <select id="splitMode">
+                    <option value="auto">자동 (단락 구분)</option>
+                    <option value="line">줄 단위</option>
+                    <option value="marker">마커 기반 ([장면], --- 등)</option>
+                </select>
+                <span class="hint">Enter 2번 = 새 장면 구분 | 대본 작성 후 "대본 분석 실행" 클릭</span>
+            </div>
+
+            <div class="script-editor-container">
+                <textarea id="scriptEditor" placeholder="여기에 대본을 입력하세요...
+
+Enter를 두 번 누르면 장면이 자동으로 구분됩니다.
+
+예시:
+기자가 사무실에서 기사를 쓰고 있다.
+
+갑자기 전화가 울린다. 기자가 전화를 받는다.
+
+기자가 급하게 자리를 박차고 나간다."></textarea>
+                <div class="scene-markers" id="sceneMarkers"></div>
+            </div>
+
+            <div class="script-footer">
+                <div class="script-stats">
+                    <span id="charCount">0자</span>
+                    <span id="lineCount">0줄</span>
+                    <span id="sceneEstimate">예상 장면: 0개</span>
+                </div>
+                <div class="script-buttons">
+                    <button class="btn btn-primary btn-large" id="btnAnalyzeScript">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        AI 대본 분석 실행
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 2: 장면/이미지 ==================== -->
+        <div class="tab-content" id="tab-scenes">
+            <div class="scenes-header">
+                <h2>장면/이미지 <span class="scene-count" id="sceneCount">(0개)</span></h2>
+                <div class="scenes-toolbar">
+                    <button class="btn btn-primary" id="btnRunAnalysis">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        AI 분석 실행
+                    </button>
+                    <button class="btn btn-danger" id="btnStopGeneration" disabled>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                        </svg>
+                        생성 중지
+                    </button>
+                    <div class="toolbar-divider"></div>
+                    <button class="btn btn-secondary" id="btnSaveLoad">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        </svg>
+                        저장/열기
+                    </button>
+                </div>
+            </div>
+
+            <!-- Style Options -->
+            <div class="style-options">
+                <div class="style-group">
+                    <label>스타일:</label>
+                    <select id="imageStyle">
+                        <option value="플라맨 실사 합성">플라맨 실사 합성</option>
+                        <option value="실사">실사</option>
+                        <option value="애니메이션">애니메이션</option>
+                        <option value="웹툰">웹툰</option>
+                        <option value="수채화">수채화</option>
+                        <option value="3D 렌더링">3D 렌더링</option>
+                        <option value="">사용자 정의</option>
+                    </select>
+                    <input type="text" id="customStyle" placeholder="사용자 정의 스타일" style="display:none;">
+                </div>
+                <div class="style-group">
+                    <label>이미지 사이즈:</label>
+                    <select id="imageSize">
+                        <option value="기본 (복합 분할)">기본 (복합 분할)</option>
+                        <option value="1:1 (1024x1024)">1:1 (1024x1024)</option>
+                        <option value="16:9 (1920x1080)">16:9 (1920x1080)</option>
+                        <option value="9:16 (1080x1920)">9:16 (1080x1920)</option>
+                        <option value="4:3 (1024x768)">4:3 (1024x768)</option>
+                    </select>
+                </div>
+                <div class="style-group">
+                    <label>모델:</label>
+                    <select id="imageModel">
+                        <option value="나노바나나 프로 - 자동">나노바나나 프로 - 자동</option>
+                        <option value="나노바나나 프로 - 고품질">나노바나나 프로 - 고품질</option>
+                        <option value="나노바나나 프로 - 빠른생성">나노바나나 프로 - 빠른생성</option>
+                    </select>
+                </div>
+                <div class="style-group">
+                    <label>캐릭터:</label>
+                    <div class="character-buttons" id="characterButtons">
+                        <button class="btn btn-char active" data-char="char_1">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </button>
+                        <button class="btn btn-char" data-char="char_2">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </button>
+                        <button class="btn btn-char" data-char="char_3">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Batch Generate Button -->
+            <div class="batch-actions">
+                <button class="btn btn-accent btn-large" id="btnBatchGenerate">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                    </svg>
+                    이미지 일괄생성
+                </button>
+            </div>
+
+            <!-- Scene List -->
+            <div class="scene-list" id="sceneList">
+                <div class="empty-state" id="emptyState">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                        <line x1="9" y1="21" x2="9" y2="9"></line>
+                    </svg>
+                    <p>대본을 입력하고 "AI 대본 분석 실행"을 클릭하세요.</p>
+                    <p class="hint">또는 "1. 대본" 탭에서 대본을 먼저 작성하세요.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 3: 음성 ==================== -->
+        <div class="tab-content" id="tab-voice">
+            <div class="placeholder-content">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+                <h3>음성 생성</h3>
+                <p>장면/이미지 작업 완료 후 각 장면에 음성을 추가할 수 있습니다.</p>
+                <p class="hint">TTS 엔진을 연결하여 나레이션 자동 생성 가능</p>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 4: 최종 영상 ==================== -->
+        <div class="tab-content" id="tab-final">
+            <div class="placeholder-content">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5">
+                    <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                    <line x1="7" y1="2" x2="7" y2="22"></line>
+                    <line x1="17" y1="2" x2="17" y2="22"></line>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <line x1="2" y1="7" x2="7" y2="7"></line>
+                    <line x1="2" y1="17" x2="7" y2="17"></line>
+                    <line x1="17" y1="7" x2="22" y2="7"></line>
+                    <line x1="17" y1="17" x2="22" y2="17"></line>
+                </svg>
+                <h3>최종 영상</h3>
+                <p>이미지와 음성을 조합하여 최종 영상을 생성합니다.</p>
+                <p class="hint">모든 장면의 이미지와 음성이 준비된 후 사용 가능</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal" style="display:none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>설정</h3>
+                <button class="btn-close" id="btnCloseSettings">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label>OpenAI API Key (대본 분석용)</label>
+                    <input type="password" id="settingOpenaiKey" placeholder="sk-...">
+                    <span class="hint">GPT 모델을 사용한 고급 대본 분석에 필요합니다.</span>
+                </div>
+                <div class="setting-group">
+                    <label>NanoBanana Pro API Key</label>
+                    <input type="password" id="settingNanoBananaKey" placeholder="API 키 입력">
+                </div>
+                <div class="setting-group">
+                    <label>NanoBanana Pro API URL</label>
+                    <input type="text" id="settingNanoBananaUrl" placeholder="https://api.nanobanana.pro/v1/generate">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="btnSaveSettings">설정 저장</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Character Edit Modal -->
+    <div class="modal-overlay" id="characterModal" style="display:none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>캐릭터 설정</h3>
+                <button class="btn-close" id="btnCloseCharacter">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label>캐릭터 이름</label>
+                    <input type="text" id="charName" placeholder="예: 기자, 형사">
+                </div>
+                <div class="setting-group">
+                    <label>캐릭터 외형 설명</label>
+                    <textarea id="charDescription" rows="4" placeholder="예: 하얗고 둥근 머리의 2D 플라맨 캐릭터, 검은 양복을 입고 있다"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="btnSaveCharacter">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

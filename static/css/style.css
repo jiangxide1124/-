@@ -1,0 +1,941 @@
+/* ========================================================
+   Script Video Generator - Dark Theme Styles
+   ======================================================== */
+
+/* Reset & Base */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #0d0d1a;
+    --bg-secondary: #141425;
+    --bg-card: #1a1a2e;
+    --bg-input: #0f0f1e;
+    --bg-hover: #252540;
+    --border-color: #2a2a45;
+    --border-light: #3a3a55;
+    --text-primary: #e0e0e0;
+    --text-secondary: #999;
+    --text-muted: #666;
+    --accent-orange: #ff6b35;
+    --accent-red: #ff4444;
+    --accent-blue: #4a9eff;
+    --accent-green: #44cc44;
+    --accent-yellow: #ffaa00;
+    --accent-purple: #aa66ff;
+    --sidebar-width: 70px;
+    --tab-height: 44px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    display: flex;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* ========================================================
+   Sidebar
+   ======================================================== */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    flex-shrink: 0;
+}
+
+.sidebar-top, .sidebar-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-blue);
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: background 0.2s;
+}
+
+.logo:hover {
+    background: var(--bg-hover);
+}
+
+.sidebar-item {
+    width: 54px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 8px 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    font-size: 10px;
+}
+
+.sidebar-item:hover {
+    color: var(--text-primary);
+    background: var(--bg-hover);
+}
+
+.sidebar-item.active {
+    color: var(--accent-blue);
+}
+
+.version-badge {
+    font-size: 10px;
+    color: var(--text-muted);
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: var(--bg-card);
+}
+
+/* ========================================================
+   Main Content
+   ======================================================== */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Tab Navigation */
+.tab-nav {
+    display: flex;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    height: var(--tab-height);
+    flex-shrink: 0;
+}
+
+.tab {
+    padding: 0 24px;
+    height: var(--tab-height);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.tab:hover {
+    color: var(--text-secondary);
+    background: var(--bg-hover);
+}
+
+.tab.active {
+    color: var(--text-primary);
+    border-bottom-color: var(--accent-blue);
+}
+
+/* Project Bar */
+.project-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.project-bar label {
+    color: var(--text-secondary);
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.project-bar input {
+    flex: 1;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* Progress Bar */
+.progress-container {
+    padding: 8px 20px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.progress-text {
+    font-size: 12px;
+    color: var(--accent-orange);
+    margin-bottom: 4px;
+    display: block;
+}
+
+.progress-bar {
+    height: 6px;
+    background: var(--bg-card);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.tab-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================================
+   Buttons
+   ======================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    background: var(--bg-hover);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #3a8aee;
+}
+
+.btn-secondary {
+    background: var(--bg-hover);
+    border-color: var(--border-light);
+}
+
+.btn-danger {
+    background: var(--accent-red);
+    border-color: var(--accent-red);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #dd3333;
+}
+
+.btn-accent {
+    background: var(--accent-orange);
+    border-color: var(--accent-orange);
+    color: white;
+}
+
+.btn-accent:hover {
+    background: #ee5a25;
+}
+
+.btn-save {
+    background: var(--accent-red);
+    border-color: var(--accent-red);
+    color: white;
+}
+
+.btn-large {
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn-small {
+    padding: 4px 10px;
+    font-size: 12px;
+}
+
+.btn-char {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.btn-char.active {
+    border-color: var(--accent-blue);
+    background: var(--accent-blue);
+    color: white;
+}
+
+.btn-icon {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+
+/* ========================================================
+   TAB 1: Script Editor
+   ======================================================== */
+.script-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+}
+
+.script-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.script-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.input-group {
+    display: flex;
+    gap: 8px;
+}
+
+.input-group input {
+    min-width: 320px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.script-options {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+.script-options label {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.script-options select {
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.hint {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.script-editor-container {
+    flex: 1;
+    position: relative;
+    min-height: 300px;
+}
+
+#scriptEditor {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.8;
+    resize: none;
+    font-family: inherit;
+}
+
+#scriptEditor:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+}
+
+#scriptEditor::placeholder {
+    color: var(--text-muted);
+}
+
+.script-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    flex-shrink: 0;
+}
+
+.script-stats {
+    display: flex;
+    gap: 16px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.script-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+/* ========================================================
+   TAB 2: Scenes
+   ======================================================== */
+.scenes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+}
+
+.scenes-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.scene-count {
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.scenes-toolbar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.toolbar-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--border-color);
+    margin: 0 4px;
+}
+
+/* Style Options */
+.style-options {
+    display: flex;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.style-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.style-group label {
+    color: var(--text-secondary);
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.style-group select,
+.style-group input[type="text"] {
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.character-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+/* Batch Actions */
+.batch-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+}
+
+/* Scene List */
+.scene-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+    text-align: center;
+    gap: 12px;
+}
+
+.empty-state p {
+    font-size: 14px;
+}
+
+/* Scene Card */
+.scene-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.scene-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.scene-card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.scene-number {
+    color: var(--accent-orange);
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.scene-char-tag {
+    background: var(--accent-blue);
+    color: white;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.scene-card-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.scene-card-body {
+    display: flex;
+    gap: 0;
+}
+
+.scene-card-content {
+    flex: 1;
+    padding: 0;
+}
+
+.scene-field {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.scene-field:last-child {
+    border-bottom: none;
+}
+
+.scene-field-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.scene-field-content {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+.scene-field textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 13px;
+    line-height: 1.6;
+    resize: none;
+    font-family: inherit;
+    min-height: 40px;
+}
+
+.scene-field textarea:focus {
+    outline: none;
+}
+
+.scene-field textarea.narration {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.scene-card-image {
+    width: 200px;
+    min-height: 200px;
+    background: var(--bg-input);
+    border-left: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.scene-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.scene-card-image .image-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.scene-card-image .image-actions {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    display: flex;
+    gap: 4px;
+}
+
+.scene-card-image .image-actions .btn-icon {
+    background: rgba(0,0,0,0.6);
+    border: none;
+    color: white;
+}
+
+.btn-star {
+    color: var(--accent-yellow);
+}
+
+.btn-star.active {
+    color: var(--accent-yellow);
+}
+
+.btn-regenerate {
+    color: var(--accent-blue);
+}
+
+.btn-play {
+    color: var(--accent-green);
+}
+
+/* Scene field action buttons */
+.field-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.field-actions .btn-small {
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.field-actions .btn-small:hover {
+    opacity: 1;
+}
+
+/* ========================================================
+   TAB 3 & 4: Placeholder
+   ======================================================== */
+.placeholder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 12px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.placeholder-content h3 {
+    font-size: 18px;
+    color: var(--text-secondary);
+}
+
+/* ========================================================
+   Modals
+   ======================================================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    width: 500px;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+    font-size: 16px;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.btn-close:hover {
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.setting-group {
+    margin-bottom: 16px;
+}
+
+.setting-group label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.setting-group input,
+.setting-group textarea {
+    width: 100%;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+}
+
+.setting-group textarea {
+    resize: vertical;
+}
+
+.setting-group .hint {
+    display: block;
+    margin-top: 4px;
+}
+
+.modal-footer {
+    padding: 12px 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+/* ========================================================
+   Scrollbar
+   ======================================================== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--border-light);
+}
+
+/* ========================================================
+   Loading Spinner
+   ======================================================== */
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-top-color: var(--accent-blue);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ========================================================
+   Toast Notifications
+   ======================================================== */
+.toast-container {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.toast {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text-primary);
+    min-width: 300px;
+    animation: slideIn 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toast.success {
+    border-left: 3px solid var(--accent-green);
+}
+
+.toast.error {
+    border-left: 3px solid var(--accent-red);
+}
+
+.toast.info {
+    border-left: 3px solid var(--accent-blue);
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* ========================================================
+   Responsive
+   ======================================================== */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 50px;
+    }
+
+    .sidebar-item span {
+        display: none;
+    }
+
+    .style-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .scene-card-image {
+        width: 120px;
+        min-height: 120px;
+    }
+
+    .input-group input {
+        min-width: 200px;
+    }
+}
